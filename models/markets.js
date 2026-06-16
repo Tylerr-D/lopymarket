@@ -1,5 +1,7 @@
 const mongoose = require("mongoose")
 
+
+//we gonna use all this in synnMarket 
 const marketSchema = new mongoose.Schema({
     polymarketId :{
         type: String,
@@ -8,6 +10,9 @@ const marketSchema = new mongoose.Schema({
 
     question:String,
     image:String,
+
+polymarketYesPrice: Number,
+polymarketNoPrice: Number,
     yesPrice: Number,
     noPrice: Number,
 
@@ -18,8 +23,10 @@ const marketSchema = new mongoose.Schema({
 
     volume:Number,
     liquidity:Number,
+
     active: Boolean,
     closed:Boolean,
+
     endDate:Date,
 
 },{

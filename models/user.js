@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
-const userScheama = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
     username: {
+        unique:true,
         type:String,
         required:true
     },
@@ -18,7 +19,7 @@ const userScheama = new mongoose.Schema({
         required: true
     },
 
-    balance: {
+    coins: {
         type: Number,
         default: 1000
     }

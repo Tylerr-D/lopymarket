@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-
+const connectDB = require("../config/db");
 const Market = require("../models/markets");
 
 //THE api
@@ -26,6 +26,8 @@ console.log("Raw response:", response.data);
 
         console.log(`Fetched ${markets.length} markets`);
 
+        
+
         for (const market of markets ){
 
             console.log(market.outcomePrices);
@@ -37,12 +39,15 @@ console.log("Raw response:", response.data);
                     polymarketId : market.id
                 },
                 {
+                    $set:{
                 polymarketId: market.id,
                 question:market.question,
                 image:market.image,
 
                 polymarketYesPrice: Number(prices[0]),
                 polymarketNoPrice:Number(prices[1]),
+                yesPrice: Number(prices[0]),
+                noPrice: Number(prices[1]),
 
             volume: market.volumeNum,
             liquidity: market.liquidityNum,
@@ -51,6 +56,7 @@ console.log("Raw response:", response.data);
             closed: market.closed,
 
             endDate: market.endDate
+                    }
                 },
 {
     upsert: true,
