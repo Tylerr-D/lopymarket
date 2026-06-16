@@ -3,26 +3,32 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const connectDB = require("../config/db");
+
 const Market = require("../models/markets");
 
 //THE api
 
 async function syncMarkets(){
     try{
-                await connectDB();
+
     const response = await axios.get(
-                      "https://gamma-api.polymarket.com/markets?limit=100"
-    )
+"https://gamma-api.polymarket.com/markets?limit=100"
+    );
+
+
 
     //importing stuff from api
 
     //number of markets
 const markets = response.data;
+console.log("Raw response:", response.data);
+
 
         console.log(`Fetched ${markets.length} markets`);
 
         for (const market of markets ){
+
+            console.log(market.outcomePrices);
 
             const prices  = JSON.parse(market.outcomePrices);
 
@@ -46,11 +52,10 @@ const markets = response.data;
 
             endDate: market.endDate
                 },
-                {
-            upsert: true,
-            new: true
-                }
-
+{
+    upsert: true,
+    returnDocument: "after"
+}
             )
 
         }
@@ -66,5 +71,5 @@ catch (err){
 }
 }
 
-syncMarkets();
+module.exports = syncMarkets;
 
