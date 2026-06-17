@@ -8,6 +8,8 @@ const getMarkets = async (req,res) => {
 
 }
 
+// i think this should work fine?
+
 module.exports = {
     getMarkets
 }

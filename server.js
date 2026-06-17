@@ -6,6 +6,7 @@ const cors = require("cors");
 const cron = require("node-cron");
 
 const connectDB = require("./config/db");
+const tradeRoutes = require("./routes/tradeRoutes");
 
 const syncMarkets = require("./scripts/syncMarkets");
 
@@ -27,7 +28,7 @@ app.use(cors());
 app.use(express.json());
 
 
-
+app.use("/api/trade", tradeRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/markets", marketRoutes);
 

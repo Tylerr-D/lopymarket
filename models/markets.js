@@ -16,6 +16,21 @@ polymarketNoPrice: Number,
     yesPrice: Number,
     noPrice: Number,
 
+    // some difficult shi
+// traks yes no shares
+    qYes: {
+    type: Number,
+    default: 1000
+},
+qNo: {
+    type: Number,
+    default: 1000
+},
+liquidityB: {
+    type: Number,
+    default: 500
+},
+
     communityYesImpact : {
         type:Number,
         default:0
