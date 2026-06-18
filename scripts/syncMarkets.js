@@ -18,6 +18,13 @@ async function syncMarkets() {
 
             const markets = response.data;
 
+           console.log(
+    "offset:",
+    offset,
+    "returned:",
+    markets.length
+);
+
             if (markets.length === 0) {
                 break;
             }

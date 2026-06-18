@@ -15,7 +15,27 @@ function MarketPage({ marketId, userId, onBack }) {
         setMarket(res.data);
     }
 
+
+    function getCost(side){
+        if (!market || !amount) return 0;
+        const num = Number(amount);
+        if (isNaN(num) || num <= 0) return 0;
+
+        const cost = side === "YES" ? market.polymarketYesPrice : market.polymarketNoPrice;
+        return num * cost;
+    }
+
     async function handleBuy(side) {
+
+        const numShares = Number(amount);
+
+        if (!numShares || numShares <= 0) {
+            setMessage("enter number of shares");
+            return;
+        }
+
+
+
         const res = await axios.post("http://localhost:5000/api/trade/buy", {
             
             userId,
@@ -28,6 +48,15 @@ function MarketPage({ marketId, userId, onBack }) {
     }
 
     async function handleSell(side) {
+
+        const numShares = Number(shares);
+        if (!numShares || numShares <= 0) {
+            setMessage("Enter number of shares");
+            return;
+        }
+
+
+
         const res = await axios.post("http://localhost:5000/api/trade/sell", {
 
             userId,
@@ -39,8 +68,12 @@ function MarketPage({ marketId, userId, onBack }) {
         setMessage(`Sold! Got ${res.data.coinsReceived.toFixed(2)} coins back`);
         setAmount("");
     }
+    
 
     if (!market) return <p>Loading...</p>;
+
+        const yesCost = getCost("YES");
+    const noCost = getCost("NO");
 
     return (
         <div>
@@ -50,50 +83,59 @@ function MarketPage({ marketId, userId, onBack }) {
 
       {market.image && <img src={market.image} style={{ width: "100%", maxHeight: 250, objectFit: "cover", marginBottom: 15 }} />}
 
-            <div className="info-grid">
-                <div className="info-item">
-
-                    <span className="info-label">YES</span>
-                    <span className="info-value yes-price">{(market.polymarketYesPrice * 100).toFixed(1)}%</span>
+             <div style={{ display: "flex", gap: 20, marginBottom: 15 }}>
+                <div>
+                    <span style={{ color: "#94a3b8" }}>YES </span>
+                    <span className="yes-price">
+                        {(market.polymarketYesPrice * 100).toFixed(1)}%
+                    </span>
                 </div>
-                <div className="info-item">
-
-                    <span className="info-label ">NO</span>
-                    <span className="info-value no-price">{(market.polymarketNoPrice * 100).toFixed(1)}%</span>
-
-            </div>
-                <div className="info-item">
-                    <span className="info-label">Volume</span>
-                    <span className="info-value volume">${Math.round(market.volume || 0).toLocaleString()}</span>
+                <div>
+                    <span style={{ color: "#94a3b8" }}>NO </span>
+                    <span className="no-price">
+                        {(market.polymarketNoPrice * 100).toFixed(1)}%
+                    </span>
                 </div>
-                {market.liquidity && (
-                    <div className="info-item">
+            </div>
+            
 
-
-                        <span className="info-label">Liquidity</span>
-
-                        <span className="info-value">${Math.round(market.liquidity).toLocaleString()}</span>
-                    </div>
-                )}
+             <div style={{ marginBottom: 15 }}>
+                <label style={{ color: "#94a3b8" }}>Shares</label>
+                <input className="input-amount" type="number" placeholder="0" value={amount} onChange={(e) => setAmount(e.target.value)} style={{ width: "100%", marginTop: 5 }} />
             </div>
 
-            <div style={{ marginTop: 20 }}>
-                <input className="input-amount" type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
 
-                <button className="btn btn-yes" onClick={() => handleBuy("YES")}>   Buy YES   </button>
 
-                
-                <button className="btn btn-no" onClick={() => handleBuy("NO")}>   Buy NO   </button>
-            </div>
 
-            <div style={{ marginTop: 15 }}>
-                <button className="btn btn-yes" onClick={()=> handleSell("YES")}   style={{opacity: 0.7 }}>Sell YES</button>
 
-                <button className="btn btn-no" onClick={()=> handleSell("NO")} style={{ opacity: 0.7 }}>Sell NO</button>
-            </div>
+            <div style={{ display: "flex", gap: 10, marginBottom: 10 }}>
+                <button className="btn btn-yes" onClick={() => handleBuy("YES")} style={{ flex: 1 }}
+                > Buy YES ({yesCost > 0 ? yesCost.toFixed(2) : "0"} ¢)
+                </button>
 
-            {message && <div className="message">{message}</div>}
-        </div>
+                  <button
+                    className="btn btn-no"
+                    onClick={() => handleBuy("NO")}
+                    style={{ flex: 1 }}
+                > Buy NO ({noCost > 0 ? noCost.toFixed(2) : "0"} ¢) </button>
+</div>
+
+             <div style={{ display: "flex", gap: 10 }}>
+                <button className="btn btn-yes" onClick={() => handleSell("YES")} style={{ flex: 1, opacity: 0.6 }}>
+                    Sell YES
+                </button>
+
+                 <button className="btn btn-no" onClick={() => handleSell("NO")} style={{ flex: 1, opacity: 0.6 }} >
+                    Sell NO
+                </button>
+                </div>
+
+                            {message && (<div style={{ marginTop: 15, color: "#fbbf24", textAlign: "center" }}>{message}
+                </div>
+                            )}
+                </div>
+
+
     );
 }
 
