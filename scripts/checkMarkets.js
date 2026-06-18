@@ -9,7 +9,7 @@ const Market = require("../models/markets");
 async function check() {
     await connectDB();
 
-    const markets = await Market.find().limit(5);
+    const markets = await Market.find().limit(500);
 
     console.log(markets);
 }
