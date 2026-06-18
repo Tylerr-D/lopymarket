@@ -1,0 +1,139 @@
+/* i dont like writin css :(*/
+
+/* 0a0a0a is a cool color*/
+
+body {
+  background-color:#0a0a0a;
+      font-family: Arial, sans-serif;
+      color:white;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 ;
+    padding: 20px;
+}
+
+.nav {
+    display: flex;
+    gap:20px;
+    padding:15px 0;
+    margin-bottom:20px;
+}
+
+.nav button {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.nav button.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.search-box {
+    width: 100%;
+    padding: 12px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+
+.market-card {
+    background: #1a1a1a;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.market-card:hover {
+    border-color: #444;
+}
+
+.market-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+.prices {
+    display: flex;
+    gap: 20px;
+}
+
+.yes-price {
+    color: #00cc88;
+    font-weight: bold;
+}
+
+.no-price {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+.btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-yes {
+    background: #00cc88;
+    color: #000;
+}
+
+.btn-no {
+    background: #ff4444;
+    color: #fff;
+}
+
+.btn-back {
+    background: #333;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.input-amount {
+    padding: 10px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    width: 150px;
+    margin-right: 10px;
+}
+
+.portfolio-card {
+    background: #1a1a1a;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.profit {
+    color: #00cc88;
+}
+
+.loss {
+      color: #ff4444;
+}
+
+.volume {
+    color: #666;
+    font-size: 13px;
+}
+
