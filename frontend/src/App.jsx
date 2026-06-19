@@ -45,7 +45,7 @@ return (
               </div>
             {page === "home" && <Home onMarketClick={openMarket} />}
 
-            {page === "market" && <MarketPage marketId ={selectedMarketId} userId={userId} onBack = {() => setPage("home")} />}
+            {page === "market" && <MarketPage marketId ={selectedMarketId} userId={userId} onUserChange = {loadUser} onBack = {() => setPage("home")} />}
 
             </div>
 )

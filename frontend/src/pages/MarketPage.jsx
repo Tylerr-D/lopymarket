@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function MarketPage({ marketId, userId, onBack }) {
+function MarketPage({ marketId, userId, onBack, onUserChange }) {
     const [market, setMarket] = useState(null);
     const [amount, setAmount] = useState("");
     const [message, setMessage] = useState("");
@@ -15,15 +15,29 @@ function MarketPage({ marketId, userId, onBack }) {
         setMarket(res.data);
     }
 
+    function getPrice(side){
+        if (!market) return 0;
 
-    function getCost(side){
-        if (!market || !amount) return 0;
-        const num = Number(amount);
-        if (isNaN(num) || num <= 0) return 0;
+        if (side ==="YES"){
+            return market.polymarketYesPrice || 0;
+        }
 
-        const cost = side === "YES" ? market.polymarketYesPrice : market.polymarketNoPrice;
-        return num * cost;
+        return market.polymarketNoPrice || 0;
     }
+
+function getCost(side) {
+    if (!amount) return 0;
+
+    const numShares = Number(amount);
+
+    if (isNaN(numShares) || numShares <= 0) {
+        return 0;
+    }
+
+    const price = getPrice(side);
+
+    return numShares * price;
+}
 
     async function handleBuy(side) {
 
