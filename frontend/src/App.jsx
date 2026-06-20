@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Home from "./pages/Home";
+import Home from "./Home";
 import MarketPage from "./pages/MarketPage";
 // import Portfolio from "./pages/Portfolio";
 
@@ -12,7 +12,7 @@ function App() {
       const [user, setUser] = useState(null);
 
 
-const userId = "6a357a42670337823e748518";
+const userId = "6a3619a4d11e711450e61415";
 
     async function loadUser() {
         const res = await axios.get(`http://localhost:5000/api/users/${userId}`);

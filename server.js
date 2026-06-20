@@ -34,8 +34,6 @@ app.use("/api/markets", marketRoutes);
 
 
 
-
-
 app.get("/", (req,res) =>{
         res.send("Lopymarket API workin");
 

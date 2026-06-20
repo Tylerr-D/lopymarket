@@ -48,7 +48,7 @@ function getCost(side) {
             return;
         }
 
-
+const cost = getCost(side)
 
         const res = await axios.post("http://localhost:5000/api/trade/buy", {
             
@@ -59,35 +59,48 @@ function getCost(side) {
         });
         setMessage(`Bought ${res.data.sharesBought.toFixed(2)} ${side} shares!`);
         setAmount("");
+
+                if (onUserChange) {
+            onUserChange();
+        }
     }
 
     async function handleSell(side) {
 
-        const numShares = Number(shares);
+        const numShares = Number(amount);
         if (!numShares || numShares <= 0) {
             setMessage("Enter number of shares");
             return;
         }
 
-
-
         const res = await axios.post("http://localhost:5000/api/trade/sell", {
 
             userId,
-
             marketId,
             side,
-            shares: Number(amount)
+            shares: numShares
         });
         setMessage(`Sold! Got ${res.data.coinsReceived.toFixed(2)} coins back`);
         setAmount("");
+
+             if (onUserChange) {
+            onUserChange();
+        }
+
     }
+
+
     
 
     if (!market) return <p>Loading...</p>;
 
         const yesCost = getCost("YES");
     const noCost = getCost("NO");
+
+        const numShares = Number(amount) || 0;
+
+    const yesProfitIfCorrect = numShares - yesCost;
+    const noProfitIfCorrect = numShares - yesCost;
 
     return (
         <div>
@@ -118,20 +131,67 @@ function getCost(side) {
                 <input className="input-amount" type="number" placeholder="0" value={amount} onChange={(e) => setAmount(e.target.value)} style={{ width: "100%", marginTop: 5 }} />
             </div>
 
+       
+
+            {numShares > 0 &&(
+                <div className = "preview-box">
+              <h3>Trade Preview</h3>
+                        <div className="preview-line">
+            <span>Shares</span>
+            <strong>{numShares}</strong>
+        </div>
+
+         <div className="preview-line">
+            <span>Buy YES cost</span>
+            <strong>{yesCost.toFixed(2)} coins</strong>
+        </div>
+
+                <div className="preview-line">
+            <span>If YES is correct, receive</span>
+            <strong>{numShares.toFixed(2)} coins</strong>
+        </div>
+
+          <div className="preview-line">
+            <span>YES profit if correct</span>
+            <strong>{yesProfitIfCorrect.toFixed(2)} coins</strong>
+        </div>
+
+        <hr />
+
+                <div className="preview-line">
+            <span>Buy NO cost</span>
+            <strong>{noCost.toFixed(2)} coins</strong>
+        </div>
+
+        <div className="preview-line">
+            <span>If NO is correct, receive</span>
+            <strong>{numShares.toFixed(2)} coins</strong>
+        </div>
+
+                <div className="preview-line">
+            <span>NO profit if correct</span>
+            <strong>{noProfitIfCorrect.toFixed(2)} coins</strong>
+        </div>
 
 
 
+                </div>
+            )
+
+
+
+        }
 
             <div style={{ display: "flex", gap: 10, marginBottom: 10 }}>
                 <button className="btn btn-yes" onClick={() => handleBuy("YES")} style={{ flex: 1 }}
-                > Buy YES ({yesCost > 0 ? yesCost.toFixed(2) : "0"} ¢)
+                > Buy YES ({yesCost > 0 ? yesCost.toFixed(2) : "0"} coins)
                 </button>
 
                   <button
                     className="btn btn-no"
                     onClick={() => handleBuy("NO")}
                     style={{ flex: 1 }}
-                > Buy NO ({noCost > 0 ? noCost.toFixed(2) : "0"} ¢) </button>
+                > Buy NO ({noCost > 0 ? noCost.toFixed(2) : "0"} coins) </button>
 </div>
 
              <div style={{ display: "flex", gap: 10 }}>

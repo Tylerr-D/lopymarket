@@ -192,7 +192,27 @@ const sell = async (req, res) => {
     });
   };
 
+const getPosition = async (req,res) => {
 
+const {userId, marketId} = req.params;
+
+const position = await Position.findOne({
+  user:userId,
+  market:marketId
+})
+
+if (!position) {
+  return res.json({
+                yesShares: 0,
+            noShares: 0,
+            yesAvgPrice: 0,
+            noAvgPrice: 0
+  })
+}
+
+    res.json(position);
+
+}
 
             
-module.exports = { buy,getPortfolio, sell};
+module.exports = { buy,getPortfolio, sell, getPosition};
