@@ -40,8 +40,9 @@ const buy = async (req, res) => {
         user.coins -= spend;
 
     let position = await Position.findOne({
-      userId,
-      marketId
+  user: userId,
+  market: marketId
+
     });
 
         if (!position) {

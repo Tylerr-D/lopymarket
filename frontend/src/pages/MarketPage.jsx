@@ -55,7 +55,7 @@ const cost = getCost(side)
             userId,
             marketId,
             side,
-            amount: Number(amount)
+            amount: cost
         });
         setMessage(`Bought ${res.data.sharesBought.toFixed(2)} ${side} shares!`);
         setAmount("");
@@ -100,15 +100,16 @@ const cost = getCost(side)
         const numShares = Number(amount) || 0;
 
     const yesProfitIfCorrect = numShares - yesCost;
-    const noProfitIfCorrect = numShares - yesCost;
+    const noProfitIfCorrect = numShares - noCost;
 
     return (
         <div>
    <button className="btn btn-back" onClick={onBack}>Back</button>
 
             <h2>{market.question}</h2>
+            
 
-      {market.image && <img src={market.image} style={{ width: "100%", maxHeight: 250, objectFit: "cover", marginBottom: 15 }} />}
+      {market.image && <img src={market.image} style={{display: "block", margin: "0 auto 15px", maxWidth: "300px", width: "100%", height: "auto", borderRadius: "12px"  }} />}
 
              <div style={{ display: "flex", gap: 20, marginBottom: 15 }}>
                 <div>
@@ -172,12 +173,8 @@ const cost = getCost(side)
             <span>NO profit if correct</span>
             <strong>{noProfitIfCorrect.toFixed(2)} coins</strong>
         </div>
-
-
-
                 </div>
             )
-
 
 
         }

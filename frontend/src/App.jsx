@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Home from "./Home";
 import MarketPage from "./pages/MarketPage";
-// import Portfolio from "./pages/Portfolio";
+ import Portfolio from "./pages/Portfolio";
 
 
 function App() {
@@ -41,11 +41,18 @@ return (
                 <button className = {page === "home" ? "active":""}
                   onClick={()=> setPage("home")}>Markets</button >
 
+                  <button className={page === "portfolio" ? "active" : ""} onClick={()=> setPage("portfolio")}>
+                    Portfolio
+                  </button>
+
 
               </div>
             {page === "home" && <Home onMarketClick={openMarket} />}
 
             {page === "market" && <MarketPage marketId ={selectedMarketId} userId={userId} onUserChange = {loadUser} onBack = {() => setPage("home")} />}
+
+              {page === "portfolio" && <Portfolio userId={userId} />}
+
 
             </div>
 )
