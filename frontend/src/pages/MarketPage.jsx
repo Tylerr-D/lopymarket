@@ -53,7 +53,7 @@ function getCost(side) {
 
 const cost = getCost(side)
 
-        const res = await axios.post("${import.meta.env.VITE_API_URL}/api/trade/buy", {
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/trade/buy`, {
             
             userId,
             marketId,
@@ -76,7 +76,7 @@ const cost = getCost(side)
             return;
         }
 
-        const res = await axios.post("${import.meta.env.VITE_API_URL}/api/trade/sell", {
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/trade/sell`, {
 
             userId,
             marketId,
