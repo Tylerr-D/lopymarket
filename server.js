@@ -42,6 +42,6 @@ app.get("/", (req,res) =>{
 //this is what seniors do hehehe
 const PORT = 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on port ${PORT}`);
 });
