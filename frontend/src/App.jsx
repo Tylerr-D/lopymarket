@@ -15,7 +15,7 @@ function App() {
 const userId = "6a3619a4d11e711450e61415";
 
     async function loadUser() {
-        const res = await axios.get(`http://localhost:5000/api/users/${userId}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${userId}`);
         setUser(res.data);
     }
 

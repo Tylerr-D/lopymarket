@@ -10,7 +10,7 @@ function Portfolio({userId}) {
 
 
 async function load(){
-    const res = await axios.get(`http://localhost:5000/api/trade/portfolio/${userId}`);
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/trade/portfolio/${userId}`);
   setData(res.data);
 }
 

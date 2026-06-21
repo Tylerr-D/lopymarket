@@ -6,13 +6,16 @@ function MarketPage({ marketId, userId, onBack, onUserChange }) {
     const [amount, setAmount] = useState("");
     const [message, setMessage] = useState("");
 
-    useEffect(() => {
-        loadMarket();
-    }, [marketId]);
+ useEffect(() => {
+    loadMarket();
+    const interval = setInterval(loadMarket, 15000); 
+    return () => clearInterval(interval); 
+}, [marketId]);
 
     async function loadMarket() {
-        const res = await axios.get(`http://localhost:5000/api/markets/${marketId}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/markets/${marketId}`);
         setMarket(res.data);
+         console.log("refreshed at", new Date().toLocaleTimeString(), res.data.polymarketYesPrice);
     }
 
     function getPrice(side){
@@ -50,7 +53,7 @@ function getCost(side) {
 
 const cost = getCost(side)
 
-        const res = await axios.post("http://localhost:5000/api/trade/buy", {
+        const res = await axios.post("${import.meta.env.VITE_API_URL}/api/trade/buy", {
             
             userId,
             marketId,
@@ -73,7 +76,7 @@ const cost = getCost(side)
             return;
         }
 
-        const res = await axios.post("http://localhost:5000/api/trade/sell", {
+        const res = await axios.post("${import.meta.env.VITE_API_URL}/api/trade/sell", {
 
             userId,
             marketId,

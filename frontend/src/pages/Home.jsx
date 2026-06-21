@@ -10,7 +10,7 @@ function Home({ onMarketClick }) {
     }, []);
 
     async function loadMarkets() {
-        const res = await axios.get("http://localhost:5000/api/markets");
+        const res = await axios.get("${import.meta.env.VITE_API_URL}/api/markets");
 
     setMarkets(res.data);
     }
@@ -27,7 +27,7 @@ const value = e.target.value;
         }
 
         if (value.length >= 2) {
-            const res = await axios.get(`http://localhost:5000/api/markets/search?q=${value}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/markets/search?q=${value}`);
             setMarkets(res.data);
 
         }
