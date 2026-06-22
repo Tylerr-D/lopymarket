@@ -10,7 +10,7 @@ function Home({ onMarketClick }) {
     }, []);
 
     async function loadMarkets() {
-        const res = await axios.get("${import.meta.env.VITE_API_URL}/api/markets");
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/markets`);
 
     setMarkets(res.data);
     }
